@@ -1,0 +1,91 @@
+@media print {
+    .numero{
+        font-size : 15pt;
+        position: relative;
+    }
+
+    .equipe{
+        font-size: 10pt;
+        position: relative;
+        top: 20pt;
+    }
+
+    .lot{
+        font-size: 12pt;
+        position: relative;
+        left: 60pt;
+        top: 2pt;
+        font-weight: 800;
+        overflow-y: hidden;
+        overflow-wrap: break-word;
+        width: 400pt;
+        display: inline-block;
+        height: 15pt;
+    }
+
+    .titre{
+        font-size: 15pt;
+        position: relative;
+        left: 60pt;
+        top: 10pt;
+        overflow-wrap: break-word;
+        width: 400pt;
+        display: inline-block;
+        height: 60pt;
+        overflow-y: hidden;
+    }
+
+    .referent{
+        font-size : 12pt;
+        position: relative;
+        top: 90pt;
+    }
+
+    .chiffrage{
+        font-size: 15pt;
+        position: relative;
+        top: 90pt;
+        left: 450pt;
+    }
+
+    .storiesTable tr {
+        height: 122pt;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .storiesTable tr td {
+        position: absolute;
+        border-top: 0 !important;
+        background: transparent !important;
+    }
+
+    .content {
+        margin-top: 0 !important;
+    }
+
+    table { page-break-after:auto }
+
+    tr    { page-break-inside:avoid; page-break-after:auto }
+
+    .panel {
+        margin-bottom: 0 !important;
+        border: 0 !important;
+    }
+
+    .panel-body {
+        padding: 0 !important;
+    }
+
+    .table {
+        margin-bottom: 0 !important;
+    }
+
+    .visible-print-inline {
+        display: inline !important;
+    }
+
+    .mainPanel{
+        margin-top: 0;
+    }
+}

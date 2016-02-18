@@ -1,0 +1,66 @@
+<section data-ng-controller="IterationsController" data-ng-init="initCreate()">
+    <div class="panel panel-default">
+        <div class="panel-body" >
+            <form name="iterationForm" class="form-horizontal " role="form" data-ng-submit="create(iterationForm.$valid)" novalidate>
+                <div class="col-lg-6">
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && iterationForm.name.$invalid }">
+                        <label mean-token="'create-version'" class="col-md-3 control-label">Version</label>
+                        <div class="col-md-9">
+                            <input name="version" type="text" class="form-control" data-ng-model="version" id="version" placeholder="version" ng- ng-class="{ 'has-error' : submitted && iterationForm.name.$error.required }" ng-change="initIterations()" required>
+                            <div ng-show="submitted && iterationForm.version.$invalid" class="help-block">
+                                <p ng-show="iterationForm.version.$error.required">Champ obligatoire</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && iterationForm.nbIterations.$invalid }">
+                        <label mean-token="'create-nbIterations'" class="col-md-3 control-label">Nombre d'itérations</label>
+                        <div class="col-md-9">
+                            <input name="nbIterations" type="text" class="form-control" data-ng-model="nbIterations" id="nbIterations" ng-change="initIterations()" required>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : submitted && iterationForm.dateDebutVersion.$invalid }">
+                        <label mean-token="'create-nbIterations'" class="col-md-3 control-label">Date de début de la version</label>
+                        <div class="col-md-9">
+                            <input name="dateDebutVersion" class="form-control" ui-date="{dateFormat:'dd/mm/yy'}" ui-date-format="dd/MM/yy" data-ng-model="dateDebutVersion" ng-required="false" ng-change="initIterations()"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Version</th>
+                                    <th>Itération</th>
+                                    <th>Date début</th>
+                                    <th>Date fin</th>
+                                    <th>Durée it</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="it in iterations">
+                                    <td class="col-lg-2">{{it.version}}</td>
+                                    <td class="col-lg-2">{{it.numero}}</td>
+                                    <td class="col-lg-2">{{it.dateDebut | date :'dd/MM/yyyy' }}</td>
+                                    <td class="col-lg-2">{{it.dateFin | date :'dd/MM/yyyy'}}</td>
+                                    <td class="col-lg-2">{{it.duree}}</td>
+                                    <td class="col-lg-2">
+                                        <a class="btn" data-ng-click="changeDuration(it, 1);"><span class="glyphicon glyphicon-plus"/></a>
+                                        <a class="btn" data-ng-click="changeDuration(it, -1);"><span class="glyphicon glyphicon-minus"/></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button type="button" class="btn" onclick="history.go(-1);">Annuler</button>
+                        <button type="submit" class="btn btn-success">Enregistrer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

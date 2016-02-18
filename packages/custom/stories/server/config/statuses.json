@@ -1,0 +1,6 @@
+[
+    { "name" : "créé" ,       "color" : "created"},
+    { "name" : "en lecture",    "color" : "toReview"},
+    { "name" : "fitnessé",    "color" : "reviewed"},
+    { "name" : "developpé",     "color" : "developped"}
+]

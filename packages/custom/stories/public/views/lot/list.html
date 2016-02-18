@@ -1,0 +1,43 @@
+<section data-ng-controller="LotsController" data-ng-init="initLotView()" >
+    <div class="hidden-print navbar-fixed-top searchPanel">
+        <div class="panel">
+            <div class="container">
+                <div class="panel-body" >
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <button type="button" class="btn btn-info" ui-sref="create lot"><span class="glyphicon glyphicon-plus"></span> Ajouter un lot</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainPanel">
+        <div class="panel panel-default">
+            <div class="panel-heading">Liste des lots</div>
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th class="col-md-1"></th>
+                            </tr>
+                            </thead>
+                            <tr data-ng-repeat="lot in lots" ng-dblclick="open(lot)" class="dblclick" title="+ de détails">
+                                <td>{{lot.name}}</td>
+                                <td>{{lot.description}}</td>
+                                <td>
+                                    <a class="btn" href="/#!/lots/{{lot._id}}/edit"><span class="glyphicon glyphicon-pencil"/></a>
+                                    <a class="btn" data-ng-click="removeLot(lot._id);"><span class="glyphicon glyphicon-trash"/></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
