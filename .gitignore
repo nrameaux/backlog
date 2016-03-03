@@ -18,6 +18,11 @@ Icon
 .idea/
 
 # --------------------
+# Eclipse
+# --------------------
+.project
+
+# --------------------
 # Netbeans Files
 # --------------------
 nbproject/private/
