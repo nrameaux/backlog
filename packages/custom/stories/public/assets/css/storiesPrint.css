@@ -11,7 +11,7 @@
     }
 
     .lot{
-        font-size: 12pt;
+        font-size: 14pt;
         position: relative;
         left: 60pt;
         top: 2pt;
@@ -24,32 +24,32 @@
     }
 
     .titre{
-        font-size: 15pt;
+        font-size: 20pt;
         position: relative;
         left: 60pt;
         top: 10pt;
         overflow-wrap: break-word;
         width: 400pt;
         display: inline-block;
-        height: 60pt;
+        height: 90pt;
         overflow-y: hidden;
     }
 
     .referent{
         font-size : 12pt;
         position: relative;
-        top: 90pt;
+        top: 120pt;
     }
 
     .chiffrage{
-        font-size: 15pt;
+        font-size: 18pt;
         position: relative;
-        top: 90pt;
+        top: 115pt;
         left: 450pt;
     }
 
     .storiesTable tr {
-        height: 122pt;
+        height: 146pt;
         border-top: 1px solid #ddd;
         border-bottom: 1px solid #ddd;
     }
