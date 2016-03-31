@@ -38,6 +38,13 @@ Stories.register(function(app, auth, database) {
       'menu': 'main'
   });
 
+    Stories.menus.add({
+        /*'roles': ['authenticated'],*/
+        'title': 'Backlog',
+        'link': 'backlog',
+        'menu': 'main'
+    });
+
   Stories.menus.add({
       /*'roles': ['authenticated'],*/
       'title': 'Lots',

@@ -161,7 +161,7 @@ exports.all = function(req, res) {
             });
         }
 
-        StoryMongo.find(story_Where).where({ iteration : { $in : iterationIds} }).populate('lot').populate('iteration').sort({priorite: 1}).exec(function(err, stories) {
+        StoryMongo.find(story_Where).where({ iteration: { $in: iterationIds} }).populate('lot').populate('iteration').sort({priorite: 1}).exec(function (err, stories) {
             if (err) {
                 return res.json(500, {
                     error: 'Cannot list the stories'
@@ -273,9 +273,12 @@ exports.updatePrio = function(req, res){
 };
 
 exports.getTechnicalPrioDistribution= function(req, res){
+
+    var domaineWhere = req.query.isBacklogScreen === 'true' ? {$in:['Backlog']} : {$nin:['Fonctionnel', 'Backlog']};
+
     StoryMongo.aggregate([{
         $match : {
-            domaine : {$ne : 'Fonctionnel'}, statut : {$ne : 'developpé'}, corbeille : false
+            domaine : domaineWhere, statut : {$ne : 'developpé'}, corbeille : false
         }
     }, {
         $group : {
@@ -308,7 +311,9 @@ exports.getTechnicalPrioPcxDistribution= function(req, res){
         return result;
     };
 
-    o.query = {domaine : {$ne : 'Fonctionnel'}, statut : {$ne : 'developpé'}, corbeille : false, chiffrage : { $ne : null}};
+    var domaineWhere = req.query.isBacklogScreen === 'true' ? {$in:['Backlog']} : {$nin:['Fonctionnel', 'Backlog']};
+
+    o.query = {domaine : domaineWhere, statut : {$ne : 'developpé'}, corbeille : false, chiffrage : { $ne : null}};
 
     StoryMongo.mapReduce(o, function(err, result){
         if (err) {
@@ -321,9 +326,12 @@ exports.getTechnicalPrioPcxDistribution= function(req, res){
 };
 
 exports.getTechnicalStoriesDomainDistrib= function(req, res){
+
+    var domaineWhere = req.query.isBacklogScreen === 'true' ? {$in:['Backlog']} : {$nin:['Fonctionnel', 'Backlog']};
+
     StoryMongo.aggregate([{
         $match : {
-            domaine : {$ne : 'Fonctionnel'}, statut : {$ne : 'developpé'}, corbeille : false
+            domaine : domaineWhere, statut : {$ne : 'developpé'}, corbeille : false
         }
     }, {
         $group : {

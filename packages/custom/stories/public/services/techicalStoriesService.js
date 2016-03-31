@@ -7,12 +7,12 @@ angular.module('mean.stories').factory('TechnicalStoryService', function($http, 
      * Retourne la distribution des stories techniques.
      * @returns {HttpPromise}
      */
-    TechnicalStoryService.getTechnicalStoriesDistrib = function (url) {
+    TechnicalStoryService.getTechnicalStoriesDistrib = function (url, backlogScreen) {
         var technicalDistrib = {};
         var labels = [];
         var distribution = [];
         var deferred = $q.defer();
-        $http.get(url).then(function(response){
+        $http.get(url, {params : {isBacklogScreen : backlogScreen}}).then(function(response){
             for(var i in response.data) {
                 labels.push(response.data[i]._id);
                 distribution.push(response.data[i].value);

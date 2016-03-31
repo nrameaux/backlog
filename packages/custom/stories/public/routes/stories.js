@@ -30,6 +30,10 @@ angular.module('mean.stories').config(['$stateProvider',
         url: '/backlog-technique',
         templateUrl: 'stories/views/technicalBacklog.html'
     })
+    .state('backlog', {
+        url: '/backlog',
+        templateUrl: 'stories/views/technicalBacklog.html'
+    })
     .state('view lot', {
         url: '/lots',
         templateUrl: 'stories/views/lot/list.html'

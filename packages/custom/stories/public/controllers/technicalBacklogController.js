@@ -13,9 +13,15 @@ angular.module('mean.stories').controller('TechnicalBacklogController', ['$scope
 
         $scope.initTechnicalView = function(){
             $scope.corbeilleScreen = $state.is('corbeille');
-            $scope.stories = Stories.search({param : '{"corbeille":"false","domaine":{"$ne":"Fonctionnel"}}'});
+            $scope.backlogScreen = $state.is('backlog');
+            $scope.stories = {};
+            if($scope.backlogScreen) {
+                $scope.stories = Stories.search({param: '{"corbeille":"false","domaine":{"$in": ["Backlog"]}}'});
+            } else {
+                $scope.stories = Stories.search({param: '{"corbeille":"false","domaine":{"$nin":["Fonctionnel", "Backlog"]}}'});
+            }
             $scope.displayedCollection = $scope.stories;
-            initStatistiques();
+            initStatistiques($scope.backlogScreen);
             ConfigService.initStatusColorMap().then(function(colorMap){
                 $scope.statusColorMap = colorMap;
             });
@@ -29,18 +35,18 @@ angular.module('mean.stories').controller('TechnicalBacklogController', ['$scope
             return StoryService.getTShirtSize(chiffrage);
         };
 
-        function initStatistiques(){
-            TechnicalStoryService.getTechnicalStoriesDistrib('/technicalStoriesPrioDistrib').then(function(result) {
+        function initStatistiques(backlogScreen){
+            TechnicalStoryService.getTechnicalStoriesDistrib('/technicalStoriesPrioDistrib',backlogScreen).then(function(result) {
                 $scope.technicalStoriesPrioDistrib = {};
                 $scope.technicalStoriesPrioDistrib.priorityLabels = result.labels;
                 $scope.technicalStoriesPrioDistrib.priorityDistrib = result.distrib;
             });
-            TechnicalStoryService.getTechnicalStoriesDistrib('/technicalStoriesPrioPcxDistrib').then(function(result) {
+            TechnicalStoryService.getTechnicalStoriesDistrib('/technicalStoriesPrioPcxDistrib',backlogScreen).then(function(result) {
                 $scope.technicalStoriesPrioPcxDistrib = {};
                 $scope.technicalStoriesPrioPcxDistrib.priorityLabels = result.labels;
                 $scope.technicalStoriesPrioPcxDistrib.priorityDistrib = result.distrib;
             });
-            TechnicalStoryService.getTechnicalStoriesDistrib('/technicalStoriesDomainDistrib').then(function(result) {
+            TechnicalStoryService.getTechnicalStoriesDistrib('/technicalStoriesDomainDistrib',backlogScreen).then(function(result) {
                 $scope.technicalStoriesDomainDistrib = {};
                 $scope.technicalStoriesDomainDistrib.domainLabels = result.labels;
                 $scope.technicalStoriesDomainDistrib.domainDistrib = result.distrib;
