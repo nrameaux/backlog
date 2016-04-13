@@ -32,7 +32,6 @@ Stories.register(function(app, auth, database) {
   });
 
   Stories.menus.add({
-      /*'roles': ['authenticated'],*/
       'title': 'Backlog technique',
       'link': 'technical backlog',
       'menu': 'main'

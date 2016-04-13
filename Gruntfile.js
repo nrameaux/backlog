@@ -124,11 +124,36 @@ module.exports = function(grunt) {
                 }
             ]
         }
-    }
+    },
+    'start-selenium-server': {
+      dev: {
+        options: {
+          autostop: true,
+          downloadUrl: 'https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar',
+          downloadLocation: '/Users/nicolasrameaux/Documents/sources/temp',
+          serverOptions: {},
+          systemProperties: {
+            'webdriver.chrome.driver':'/Users/nicolasrameaux/Documents/dev/webdriverio-test/chromedriver'
+
+          }
+        }
+      }
+    },
+    'stop-selenium-server': {
+      dev: {}
+    },
+    webdriver: {
+      test: {
+        configFile: './wdio.conf.js'
+      }
+    },
   });
 
   //Load NPM tasks
   require('load-grunt-tasks')(grunt);
+  grunt.loadNpmTasks('grunt-selenium-server');
+  grunt.loadNpmTasks('grunt-webdriver');
+
 
   //Default task(s).
   if (process.env.NODE_ENV === 'production') {
@@ -138,7 +163,14 @@ module.exports = function(grunt) {
   }
 
   //Test task.
-  grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+  //grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+
+  //Test task.
+  grunt.registerTask('test', ['env:test', 'webdriver']);
+
+  grunt.registerTask('devUI', 'run selenium server and e2e test', function() {
+    grunt.task.run('start-selenium-server:dev', 'webdriver', 'stop-selenium-server:dev');
+  });
 
   //packaging task
   grunt.registerTask('mypackaging', ['cssmin', 'uglify','compress']);
@@ -146,4 +178,23 @@ module.exports = function(grunt) {
   // For Heroku users only.
   // Docs: https://github.com/linnovate/mean/wiki/Deploying-on-Heroku
   grunt.registerTask('heroku:production', ['cssmin', 'uglify']);
+
+  var seleniumChildProcesses = {};
+  grunt.event.on('selenium.start', function(target, process) {
+    grunt.log.ok('Saw process for target: ' +  target);
+    seleniumChildProcesses[target] = process;
+  });
+
+  grunt.util.hooker.hook(grunt.fail, function() {
+    // Clean up selenium if we left it running after a failure.
+    grunt.log.writeln('Attempting to clean up running selenium server.');
+    for (var target in seleniumChildProcesses) {
+      grunt.log.ok('Killing selenium target: ' + target);
+      try {
+        seleniumChildProcesses[target].kill('SIGINT');
+      } catch(e) {
+        grunt.log.warn('Unable to stop selenium target: ' + target);
+      }
+    }
+  });
 };
