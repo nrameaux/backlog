@@ -108,6 +108,10 @@ var Story = new Schema({
         type: String,
         trim: true
     },
+    suivi: {
+        type: String,
+        trim: true
+    },
     po: {
         type: String,
         trim: true

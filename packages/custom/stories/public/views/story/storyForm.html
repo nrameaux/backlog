@@ -132,3 +132,9 @@
         <textarea ckeditor="editorOptionsFitness" name="gain" type="text" class="form-control" data-ng-model="story.gain" id="gain"/>
     </div>
 </div>
+<div class="form-group" ng-hide="isFonctionnal(story)" ng-class="{ 'has-error' : submitted && storyForm.suivi.$invalid }">
+    <label mean-token="'create-suivi'" for="suivi" class="col-md-3 control-label">Suivi story</label>
+    <div class="col-md-9">
+        <textarea ckeditor="editorOptionsFitness" name="suivi" type="text" class="form-control" data-ng-model="story.suivi" id="suivi"/>
+    </div>
+</div>
