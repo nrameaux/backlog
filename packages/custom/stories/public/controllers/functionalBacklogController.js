@@ -35,7 +35,7 @@ angular.module('mean.stories').controller('FunctionalBacklogController', ['$scop
               }
               $scope.version = $scope.versions[0];
               $scope.findIterationByVersion($scope.version);
-              $scope.stories = Stories.search({param :'{"corbeille" : "'+$scope.corbeilleScreen+'"}', itParam : '{"version":"'+$scope.version+'"}'});
+              $scope.stories = Stories.search({param :'{"corbeille" : "'+$scope.corbeilleScreen+'", "domaine":{"$nin": ["Backlog"]}}', itParam : '{"version":"'+$scope.version+'"}'});
 
               $scope.velociteCurveIterationsLabels = [];
               $scope.velociteCurveSeries = ['Velocité'];
