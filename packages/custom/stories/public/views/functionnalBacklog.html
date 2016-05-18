@@ -59,7 +59,7 @@
                               <table class="table table-hover storiesTable">
                                    <thead class="hidden-print">
                                     <tr>
-                                        <th class="col-md-1" ng-hide="corbeilleScreen"></th>
+                                        <th ng-hide="corbeilleScreen"></th>
                                         <th>#</th>
                                         <th>Equipe</th>
                                         <th>Lot/Titre</th>
@@ -71,7 +71,7 @@
                                   </thead>
                                   <tbody>
                                     <tr data-ng-repeat="story in stories|filter: { equipe : search.equipe } : teamFilter|filter: {iteration : { _id : iter._id} }:true|filter:fullSearch|orderBy:'priorite'|itPcxCalculator:iter"
-                                        ng-dblclick="open(story)" ng-class="statusColorMap[story.statut] + ' dblclick'" title="double clic pour + de détails">
+                                        ng-click="open(story)" ng-class="statusColorMap[story.statut] + ' dblclick'" title="double clic pour + de détails">
                                         <td class="hidden-print" ng-hide="corbeilleScreen">
                                             <a ng-hide="$first || !search.equipe " class="btn" data-ng-click="upPrio(story)"><span class="glyphicon glyphicon-arrow-up"></span></a>
                                             <a ng-hide="$last || !search.equipe" class="btn" data-ng-click="downPrio(story)"><span class="glyphicon glyphicon-arrow-down"></span></a>
@@ -80,8 +80,8 @@
                                         <td><span class="equipe">{{story.equipe}}</span></td>
                                         <td>
                                             <span ng-hide="story.lot.name === undefined">
-                                                <a class="hidden-print" ng-href="/#!/lots/{{story.lot._id}}">{{story.lot.name}}</a>
-                                                <span class="visible-print lot">{{story.lot.name}}</span>
+                                                {{story.lot.name}}
+                                                <span class="visible-print lot">{{story.lot.name}}</span> <a class="btn" ng-hide="corbeilleScreen" href="/#!/lots/{{story.lot._id}}" title="voir le lot"><span class="glyphicon glyphicon-tag"/></a>
                                                 <br class="hidden-print"/>
                                             </span>
                                             <span class="titre"><span ng-hide="isFonctionnal(story)" class="glyphicon glyphicon-wrench"/> {{story.titre}}</span>
