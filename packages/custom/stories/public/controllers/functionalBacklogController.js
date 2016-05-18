@@ -1,12 +1,35 @@
 'use strict';
 
-angular.module('mean.stories').controller('FunctionalBacklogController', ['$scope', '$stateParams', 'Global', 'Stories', 'Iterations', 'StoryService', 'TechnicalStoryService', 'SearchService', 'ConfigService', 'Tools', '$http', 'dialogs', '$modal', '$state', '$log',
-  function($scope, $stateParams, Global, Stories, Iterations, StoryService, TechnicalStoryService, SearchService, ConfigService, Tools, $http, dialogs ,$modal , $state, $log) {
+angular.module('mean.stories').controller('FunctionalBacklogController', ['$scope', '$stateParams', 'Global', 'Stories', 'Iterations', 'StoryService', 'TechnicalStoryService', 'SearchService', 'ConfigService', 'Tools', '$http', 'dialogs', '$modal', '$state', '$log', '$cookies',
+  function($scope, $stateParams, Global, Stories, Iterations, StoryService, TechnicalStoryService, SearchService, ConfigService, Tools, $http, dialogs ,$modal , $state, $log, $cookies) {
       $scope.global = Global;
       $scope.package = {
           name: 'stories'
       };
+
       $scope.search = {};
+      if(Tools.isNotEmpty($cookies.searchEquipe) && $cookies.searchEquipe !== 'ALL'){
+          $scope.search.equipe = $cookies.searchEquipe;
+      }
+      if(Tools.isNotEmpty($cookies.searchIteration) && $cookies.searchIteration !== 'ALL'){
+          $scope.search.iteration = $cookies.searchIteration;
+      }
+
+      $scope.$watch('search.equipe', function(newValue) {
+          if(Tools.isNotEmpty(newValue)){
+              $cookies.searchEquipe = newValue;
+          } else {
+              $cookies.searchEquipe = 'ALL';
+          }
+      });
+
+      $scope.$watch('search.iteration', function(newValue) {
+          if(Tools.isNotEmpty(newValue)) {
+              $cookies.searchIteration = newValue;
+          } else {
+              $cookies.searchIteration = 'ALL';
+          }
+      });
 
       $scope.teamFilter = function (expected, actual) {
           if (Tools.isEmpty(actual)) {
@@ -35,7 +58,15 @@ angular.module('mean.stories').controller('FunctionalBacklogController', ['$scop
               }
               $scope.version = $scope.versions[0];
               $scope.findIterationByVersion($scope.version);
-              $scope.stories = Stories.search({param :'{"corbeille" : "'+$scope.corbeilleScreen+'", "domaine":{"$nin": ["Backlog"]}}', itParam : '{"version":"'+$scope.version+'"}'});
+              Stories.search({param :'{"corbeille" : "'+$scope.corbeilleScreen+'", "domaine":{"$nin": ["Backlog"]}}', itParam : '{"version":"'+$scope.version+'"}'})
+                    .$promise.then(function(data){
+                        $scope.stories = data;
+                        if($scope.emptyTeamCriteria($scope.search.equipe)){
+                            initVelocityCurveData();
+                        } else {
+                            $scope.fillVelocityCurve();
+                        }
+              });
 
               $scope.velociteCurveIterationsLabels = [];
               $scope.velociteCurveSeries = ['Velocité'];
@@ -45,7 +76,6 @@ angular.module('mean.stories').controller('FunctionalBacklogController', ['$scop
                       $scope.velociteCurveIterationsLabels.push(iterations[j].numero);
                   }
               });
-              initVelocityCurveData();
           });
           ConfigService.initStatusColorMap().then(function(colorMap){
               $scope.statusColorMap = colorMap;
@@ -74,10 +104,8 @@ angular.module('mean.stories').controller('FunctionalBacklogController', ['$scop
               function(teams) {
                   $scope.teams = teams;
                   //Vérification que la l'équipe dans l'url est connue
-                  if($scope.teams.indexOf($stateParams.team) !== -1){
-                      if (Tools.isNotEmpty($stateParams.team)) {
-                          $scope.search.equipe = $stateParams.team;
-                      }
+                  if(Tools.isNotEmpty($stateParams.team) && $scope.teams.indexOf($stateParams.team) !== -1){
+                        $scope.search.equipe = $stateParams.team;
                   }
               }
           );
@@ -182,7 +210,7 @@ angular.module('mean.stories').controller('FunctionalBacklogController', ['$scop
       };
 
       $scope.emptyTeamCriteria = function (selectedTeam){
-         return Tools.isEmpty(selectedTeam) || selectedTeam === $scope.teams[0];
+          return Tools.isEmpty(selectedTeam) || selectedTeam === 'non affecté';
       };
 
       $scope.emptyIterationCriteria = function(selectedIteration){

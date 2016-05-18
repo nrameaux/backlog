@@ -20,14 +20,14 @@
                             <div class="col-lg-7">
                                 <div class="form-group">
                                     <label class="control-label" for="equipe">Equipe</label>
-                                    <select id="equipe" class="form-control" data-ng-change="fillVelocityCurve()" data-ng-model="search.equipe" data-ng-options="team  for team in teams">
+                                    <select id="equipe" class="form-control" data-ng-change="fillVelocityCurve()" data-ng-model="search.equipe" data-ng-options="team for team in teams track by team">
                                         <option value="">-Choisir une equipe-</option>
                                     </select>
                                     <label class="control-label" for="version">&nbsp;&nbsp;Version</label>
                                     <select id="version" data-ng-model="version" data-ng-change="findByVersion(version)"  data-ng-options="version for version in versions" class="form-control">
                                     </select>
                                     <label class="control-label" for="IT">&nbsp;&nbsp;Itération</label>
-                                    <select id="IT" class="form-control" data-ng-model="search.iteration"  data-ng-options="iteration.numero as iteration.numero for iteration in iterations | orderBy:+'numero'">
+                                    <select id="IT" class="form-control" data-ng-model="search.iteration"  data-ng-options="iteration.numero as iteration.numero for iteration in iterations track by iteration.numero | orderBy:+'numero'">
                                         <option value="">-Choisir une IT-</option>
                                     </select>
                                 </div>
