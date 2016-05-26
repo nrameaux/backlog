@@ -80,8 +80,7 @@
                                         <td><span class="equipe">{{story.equipe}}</span></td>
                                         <td>
                                             <span ng-hide="story.lot.name === undefined">
-                                                {{story.lot.name}}
-                                                <span class="visible-print lot">{{story.lot.name}}</span> <a class="btn" ng-hide="corbeilleScreen" href="/#!/lots/{{story.lot._id}}" title="voir le lot"><span class="glyphicon glyphicon-tag"/></a>
+                                                <span class="lot">{{story.lot.name}}</span> <a class="btn hidden-print" ng-hide="corbeilleScreen" href="/#!/lots/{{story.lot._id}}" title="voir le lot"><span class="glyphicon glyphicon-tag hidden-print"/></a>
                                                 <br class="hidden-print"/>
                                             </span>
                                             <span class="titre"><span ng-hide="isFonctionnal(story)" class="glyphicon glyphicon-wrench"/> {{story.titre}}</span>
