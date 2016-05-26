@@ -1,5 +1,6 @@
 'use strict';
 
+
 module.exports = {
   db: 'mongodb://localhost/mean-dev',
   mongoose: {
@@ -42,3 +43,4 @@ module.exports = {
     }
   }
 };
+

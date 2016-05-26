@@ -168,8 +168,8 @@ module.exports = function(grunt) {
   //Test task.
   grunt.registerTask('test', ['env:test', 'webdriver']);
 
-  grunt.registerTask('devUI', 'run selenium server and e2e test', function() {
-    grunt.task.run('start-selenium-server:dev', 'webdriver', 'stop-selenium-server:dev');
+ grunt.registerTask('e2e', 'run selenium server and e2e test', function() {
+    grunt.task.run('start-selenium-server:dev','webdriver', 'stop-selenium-server:dev');
   });
 
   //packaging task
@@ -179,7 +179,7 @@ module.exports = function(grunt) {
   // Docs: https://github.com/linnovate/mean/wiki/Deploying-on-Heroku
   grunt.registerTask('heroku:production', ['cssmin', 'uglify']);
 
-  var seleniumChildProcesses = {};
+  /*var seleniumChildProcesses = {};
   grunt.event.on('selenium.start', function(target, process) {
     grunt.log.ok('Saw process for target: ' +  target);
     seleniumChildProcesses[target] = process;
@@ -196,5 +196,5 @@ module.exports = function(grunt) {
         grunt.log.warn('Unable to stop selenium target: ' + target);
       }
     }
-  });
+  });*/
 };

@@ -71,7 +71,7 @@
     "meanio": "~0.5.10",
     "method-override": "^1.0.0",
     "mongodb-autoincrement": "^1.0.0",
-    "mongoose": "^3.8.8",
+    "mongoose": "^4.4.17",
     "morgan": "^1.0.0",
     "nodemailer": "~0.7.0",
     "passport": "^0.2.0",
@@ -110,6 +110,7 @@
     "wdio-jasmine-framework":"0.1.9",
     "grunt-webdriver":"1.0.0",
     "grunt-selenium-server":"0.1.7",
-    "jasmine":"2.4.1"
+    "jasmine":"2.4.1",
+    "mockgoose":"6.0.3"
   }
 }
