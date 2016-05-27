@@ -1,0 +1,93 @@
+<section data-ng-controller="StoryController" data-ng-init="findOne()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <span class="label label-info">{{story.iteration.version}}</span>
+               <b> Numéro {{story.numero}} : </b><span id="story_name">{{story.titre}}</span>
+                <a class="btn" href="/#!/stories/{{story._id}}/edit"><span class="glyphicon glyphicon-pencil"/></a>
+                <span class="pull-right date-float-right">
+                    <span class="glyphicon glyphicon-calendar"/> {{story.iteration.dateDebut | date :'dd/MM/yyyy'}} - {{story.iteration.dateFin | date :'dd/MM/yyyy'}}
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 postit">
+                <div class="row">
+                    <span class="col-md-5 title">Domaine :</span>
+                    <span class="col-md-7"><span ng-hide="isFonctionnal(story)" class="glyphicon glyphicon-wrench"/> {{story.domaine}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Lot :</span>
+                    <span class="col-md-7">{{story.lot.name}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Equipe :</span>
+                    <span class="col-md-7">{{story.equipe}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Itération :</span>
+                    <span class="col-md-7">{{story.iteration.numero}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">PO :</span>
+                    <span class="col-md-7">{{story.po}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Etudiant :</span>
+                    <span class="col-md-7">{{story.referent_etudiant}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Développeur :</span>
+                    <span class="col-md-7">{{story.referent_dev}}</span>
+                </div>
+                <div class="row" ng-hide="isFonctionnal(story)">
+                    <span class="col-md-5 title">Apporteur:</span>
+                    <span class="col-md-7">{{story.apporteur}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Macro chiffrage :</span>
+                    <span class="col-md-7"><span ng-show="isFonctionnal(story)">{{story.macro_chiffrage}}</span> <span ng-hide="isFonctionnal(story)">{{tshirt(story.macro_chiffrage)}}</span></span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Chiffrage :</span>
+                    <span class="col-md-7"><span ng-show="isFonctionnal(story)">{{story.chiffrage}}</span> <span ng-hide="isFonctionnal(story)">{{tshirt(story.chiffrage)}}</span></span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Statut :</span>
+                    <span class="col-md-7">{{story.statut}}</span>
+                </div>
+                <div class="row">
+                    <span class="col-md-5 title">Date Mep:</span>
+                    <span class="col-md-7">{{story.dateMep | date :'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="row" ng-hide="isFonctionnal(story)">
+                    <span class="col-md-5 title">Priorité :</span>
+                    <span class="col-md-7">{{story.prio_tech}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <br/>
+                <b>Description</b>
+                <p ng-bind-html="story.description"></p>
+                <br/>
+                <div ng-hide="isFonctionnal(story)">
+                    <b>Gain</b>
+                    <p ng-bind-html="story.gain"></p>
+                    <br/>
+                </div>
+                <b>Critères d'acceptation</b>
+                <p ng-bind-html="story.critereAcceptation"></p>
+                <br/>
+                <b>Fitness</b>
+                <p ng-bind-html="story.fitness"></p>
+                <br/>
+                <b>Suivi story</b>
+                <p ng-bind-html="story.suivi"></p>
+            </div>
+
+        </div>
+    </div>
+
+</section>

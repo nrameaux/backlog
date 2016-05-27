@@ -1,0 +1,19 @@
+<section data-ng-controller="StoryController" data-ng-init="initCreate()">
+    <form name="storyForm" id="storyForm" class="form-horizontal col-md-10" role="form" data-ng-submit="create(storyForm.$valid)" novalidate>
+        <div class="hidden-print navbar-fixed-top searchPanel">
+            <div class="panel">
+                <div class="container">
+                    <div class="panel-body" >
+                        <button type="submit" class="btn btn-warning" title="Enregistrer"><strong>Enregistrer</strong></button>
+                        <button type="button" class="btn" onclick="history.go(-1);" title="Annuler"><span class="glyphicon glyphicon-remove"/></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default mainPanel">
+            <div class="panel-body" >
+                 <ng-include src="'stories/views/story/storyForm.html'"></ng-include>
+            </div>
+        </div>
+    </form>
+</section>
