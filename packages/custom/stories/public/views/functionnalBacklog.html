@@ -71,14 +71,14 @@
                                   </thead>
                                   <tbody>
                                     <tr data-ng-repeat="story in stories|filter: { equipe : search.equipe } : teamFilter|filter: {iteration : { _id : iter._id} }:true|filter:fullSearch|orderBy:'priorite'|itPcxCalculator:iter"
-                                        ng-click="open(story)" ng-class="statusColorMap[story.statut] + ' dblclick'" title="clic pour + de détails">
+                                         ng-class="statusColorMap[story.statut]" title="clic pour + de détails">
                                         <td class="hidden-print" ng-hide="corbeilleScreen">
                                             <a ng-hide="$first || !search.equipe " class="btn" data-ng-click="upPrio(story)"><span class="glyphicon glyphicon-arrow-up"></span></a>
                                             <a ng-hide="$last || !search.equipe" class="btn" data-ng-click="downPrio(story)"><span class="glyphicon glyphicon-arrow-down"></span></a>
                                         </td>
                                         <td><span class="numero"><span class="visible-print-inline">#</span>{{story.numero}}</span></td>
                                         <td><span class="equipe">{{story.equipe}}</span></td>
-                                        <td>
+                                        <td class='cursor' ng-click="open(story)">
                                             <span ng-hide="story.lot.name === undefined">
                                                 <span class="lot">{{story.lot.name}}</span> <a class="btn hidden-print" ng-hide="corbeilleScreen" href="/#!/lots/{{story.lot._id}}" title="voir le lot"><span class="glyphicon glyphicon-tag hidden-print"/></a>
                                                 <br class="hidden-print"/>

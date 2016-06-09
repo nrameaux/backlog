@@ -63,10 +63,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="story in stories|filter:search:allowNullValue|filter:fullSearch" ng-click="open(story)" ng-class="statusColorMap[story.statut] + ' dblclick'" title="clic + de détails">
+                            <tr ng-repeat="story in stories|filter:search:allowNullValue|filter:fullSearch"  ng-class="statusColorMap[story.statut]" title="clic + de détails">
                                 <td>{{story.numero}}</td>
                                 <td>{{story.prio_tech}}</td>
-                                <td><span ng-hide="story.lot.name === undefined">{{story.lot.name}} <a class="btn" ng-hide="corbeilleScreen" href="/#!/lots/{{story.lot._id}}" title="voir le lot"><span class="glyphicon glyphicon-tag"/></a><br ng-hide="story.lot.name === undefined" /></span>{{story.titre}}</td>
+                                <td ng-click="open(story)" class="cursor"><span ng-hide="story.lot.name === undefined">{{story.lot.name}} <a class="btn" ng-hide="corbeilleScreen" href="/#!/lots/{{story.lot._id}}" title="voir le lot"><span class="glyphicon glyphicon-tag"/></a><br ng-hide="story.lot.name === undefined" /></span>{{story.titre}}</td>
                                 <td>{{story.domaine}}</td>
                                 <td>{{tshirt(story.chiffrage)}}</td>
                                 <td>{{story.apporteur}}</td>

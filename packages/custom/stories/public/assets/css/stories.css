@@ -57,7 +57,7 @@
         transform: matrix(-1, -0.1, 0, 1, 0, 0);
     }
 
-    tr.dblclick{
+    .cursor{
         cursor : pointer;
     }
 
