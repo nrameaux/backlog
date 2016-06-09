@@ -31,14 +31,8 @@ function saveStory(res, story){
  * @returns {boolean}
  */
 function needPriorityUpdate(oldStory, story){
-    console.log('passage ds needPriorityUpdate');
-
     var isTeamChanged = oldStory.equipe !== story.equipe;
-    var isIterationChanged = "" + oldStory.iteration !== "" + story.iteration;
-    console.log('############oldStory.iteration='+ oldStory.iteration + ' &  story.iteration='+story.iteration);
-
-    console.log('############isTeamChanged='+isTeamChanged);
-    console.log('############isIterationChanged='+isIterationChanged);
+    var isIterationChanged = '' + oldStory.iteration !== '' + story.iteration;
     return isTeamChanged ||  isIterationChanged;
 }
 
@@ -101,16 +95,13 @@ exports.create = function(req, res) {
  */
 exports.update = function(req, res) {
     var story = req.story;
-    console.log('story='+story);
     story = _.extend(story, req.body);
-    console.log('story apres extend = '+story);
     StoryMongo.findOne().where({_id: story._id}).exec(function(err, oldStory) {
         if (err) {
             return res.json(500, {
                 error: 'Cannot list the stories'
             });
         }
-        console.log('oldStory = '+oldStory);
         if(needPriorityUpdate(oldStory, story)){
             var prioTarget = 0;
 
@@ -123,10 +114,8 @@ exports.update = function(req, res) {
                 if (stories[0] !== undefined) {
                     prioTarget = stories[0].priorite;
                 }
-                console.log('stories[0]='+stories[0]);
 
                 story.priorite = prioTarget + 1;
-                console.log('new prio='+story.priorite);
 
                 saveStory(res, story);
             });
