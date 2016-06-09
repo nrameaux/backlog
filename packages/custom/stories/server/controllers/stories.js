@@ -31,11 +31,15 @@ function saveStory(res, story){
  * @returns {boolean}
  */
 function needPriorityUpdate(oldStory, story){
-    var isTeamChanged = (oldStory.equipe !== story.equipe);
-    var isVersionChanged = (oldStory.version !== story.version);
-    var isIterationChanged = (oldStory.iteration !== story.iteration);
+    console.log('passage ds needPriorityUpdate');
 
-    return isTeamChanged || isVersionChanged || isIterationChanged;
+    var isTeamChanged = oldStory.equipe !== story.equipe;
+    var isIterationChanged = "" + oldStory.iteration !== "" + story.iteration;
+    console.log('############oldStory.iteration='+ oldStory.iteration + ' &  story.iteration='+story.iteration);
+
+    console.log('############isTeamChanged='+isTeamChanged);
+    console.log('############isIterationChanged='+isIterationChanged);
+    return isTeamChanged ||  isIterationChanged;
 }
 
 /**
@@ -55,6 +59,7 @@ exports.story = function(req, res, next, id) {
  */
 exports.create = function(req, res) {
     var story = new StoryMongo(req.body);
+
 
     StoryMongo.aggregate([{
         $group : {
@@ -96,16 +101,16 @@ exports.create = function(req, res) {
  */
 exports.update = function(req, res) {
     var story = req.story;
-
+    console.log('story='+story);
     story = _.extend(story, req.body);
-
+    console.log('story apres extend = '+story);
     StoryMongo.findOne().where({_id: story._id}).exec(function(err, oldStory) {
         if (err) {
             return res.json(500, {
                 error: 'Cannot list the stories'
             });
         }
-
+        console.log('oldStory = '+oldStory);
         if(needPriorityUpdate(oldStory, story)){
             var prioTarget = 0;
 
@@ -118,8 +123,10 @@ exports.update = function(req, res) {
                 if (stories[0] !== undefined) {
                     prioTarget = stories[0].priorite;
                 }
+                console.log('stories[0]='+stories[0]);
 
                 story.priorite = prioTarget + 1;
+                console.log('new prio='+story.priorite);
 
                 saveStory(res, story);
             });
