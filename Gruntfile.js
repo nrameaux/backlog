@@ -175,26 +175,4 @@ module.exports = function(grunt) {
   //packaging task
   grunt.registerTask('mypackaging', ['cssmin', 'uglify','compress']);
 
-  // For Heroku users only.
-  // Docs: https://github.com/linnovate/mean/wiki/Deploying-on-Heroku
-  grunt.registerTask('heroku:production', ['cssmin', 'uglify']);
-
-  /*var seleniumChildProcesses = {};
-  grunt.event.on('selenium.start', function(target, process) {
-    grunt.log.ok('Saw process for target: ' +  target);
-    seleniumChildProcesses[target] = process;
-  });
-
-  grunt.util.hooker.hook(grunt.fail, function() {
-    // Clean up selenium if we left it running after a failure.
-    grunt.log.writeln('Attempting to clean up running selenium server.');
-    for (var target in seleniumChildProcesses) {
-      grunt.log.ok('Killing selenium target: ' + target);
-      try {
-        seleniumChildProcesses[target].kill('SIGINT');
-      } catch(e) {
-        grunt.log.warn('Unable to stop selenium target: ' + target);
-      }
-    }
-  });*/
 };
